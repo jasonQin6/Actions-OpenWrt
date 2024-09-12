@@ -33,17 +33,17 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@main
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
     - name: Enable SSH
+      # 使用 SSH action 来允许 SSH 访问
       uses: rocker-morgs/ssh-remote-runs@v1
       with:
-        # 通常不需要修改这个值，除非你设置了不同的端口
-        ssh-port: 22
-        # 如果你需要密码认证而不是密钥认证，可以设置这个值
-        # ssh-password: ${{ secrets.SSH_PASSWORD }}
-        # 这里是你的私钥，需要在仓库的秘密中定义
+        # 指定 SSH 私钥
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        # 可选参数，指定 SSH 端口，默认为 22
+        ssh-port: 22
         
     - name: Initialization environment
       env:
